@@ -70,18 +70,7 @@ for i in data:
     tcontext = i[(test.span()[0]):].split(":")[2]
     test = re.search("tclass",i)
     tclass = i[(test.span()[0]):].split("=")[1].split(" ")[0]
-    fix = "allow "
-    fix += scontext
-    fix += " "
-    if scontext == tcontext:
-        tcontext="self"
-    fix += tcontext
-    fix += ":"
-    fix += tclass
-    fix += " "
-    fix += se_context
-    fix += ";"
-    fix += "\n"
+    fix = f"allow {scontext} {tcontext if scontext != tcontext else 'self'}:{tclass} {se_context};\n"
     wfixes.append(fix)
 
 wfixes = list(dict.fromkeys(wfixes))
